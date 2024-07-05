@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='~/css/dashboard.css' rel='stylesheet'>
+
+    <style>
+        .form {
+            width: 100%;
+            margin-top: 20px;
+            margin-left:50px;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 1rem;
+            position: relative;
+            border-color:black;
+            border-radius: 15px;
+            padding: 2em 2em 1em 2em;
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
+            background-color: #D8EFD3;
+            z-index:-1;
+            padding-left:50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="side-nav">
+            <img src="~/images/logo.png" height="50px" width="90px" />
+            <div class="user">
+                <img src="~/images/profile-pic.png" class="user-img">
+                <div>
+                    <strong>Username:</strong> @ViewBag.Username<br>
+                    <strong>User ID:</strong> @ViewBag.Id
+                </div>
+                <img src="~/images/star.png" class="star-png">
+            </div>
+            <ul>
+                <li class="hover"><img src="~/images/dashboard.png"><p><a asp-area="" asp-controller="TeacherDashboard" asp-action="TeacherDashboard" style="color: #F1F8E8; text-decoration:none">DashBoard</a></p></li>
+                <li class="hover"><img src="~/images/course.png"><p><p><a asp-area="" asp-controller="Course" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Course</a></p></li>
+                <li class="hover"><img src="~/images/exam.png"><p><a asp-area="" asp-controller="Exam" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Exam</a></p></li>
+                <li class="hover"><img src="~/images/test.png"><p><a asp-area="" asp-controller="Questions" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Questions</a></p></li>
+                <li class="hover"><img src="~/images/result.png"><p><a asp-area="" asp-controller="Result" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Result</a></p></li>
+            </ul>
+
+            <ul>
+                <li style="color:white;"><img src="~/images/logout.png"><p><a asp-area="" asp-controller="Home" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Log Out</a></p></li>
+            </ul>
+        </div>
+        <div class="main-body">
+            <div class="form">
+            <p>
+                    <h1 style="text-align:center"> Welcome to the Teacher Dashboard!</h1><br />
+                    <h2 style="text-align:center" >Teacher Guidelines</h2><br />
+
+                <h3>Adding Courses</h3><br/>
+
+                <h4> 1.Navigate to Course Management</h4>
+                 <p> - From the side navigation bar, select "Add Course"<br/>
+                     - You will find an option to add courses"
+                </p>
+
+            <h4>2.Add Course Details</h4>
+                <p>- Click on Create New<br/>
+                - Fill in the required fields such as Course Name, Course Code and Description.<br/>
+                - Click "Save" or "Submit" to add the course.<br/>
+                - You may even edit or delete the added course from here if needed.<br/>
+                </p><br /><br />
+
+            <h3>Scheduling Exams</h3><br/>
+            <h4> 1.Navigate to Exam Scheduling</h4>
+               <p> - Go to the "Add Exams" section from the side bar.<br />
+                - You will find an option to add exam
+            </p>
+
+            <h4> 2.Set Exam Details</h4>
+               <p> - Click on Create New<br />
+                - Enter the Exam Name, Date, Start/End Time, and the course id under which you want to add the exam.<br/>
+                - Review the entered details.<br/>
+                - Click "Save" to finalize the exam.<br/>
+                - You may even edit or delete the added exam from here if needed.<br/>
+                </p><br /><br />
+
+            <h3>Scheduling Exams</h3><br/>
+
+
+
+            <h4> 1.Navigate to Question Bank</h4>
+               <p> - Go to the "Add Exams" section and select "Create New"</p>
+
+            <h4> 2.Add Questions</h4>
+               <p> - Enter the question text and provide answer options</p>
+
+            <h4> 3.Save Questions</h4>
+               <p> - Click "Add Question" after entering each question.<br/>
+                - Similarly you can add all the questions in your exam.
+            </p><br/><br/>
+
+                <h3> General Tips</h3>
+
+               <p>- Regularly Update Content: Ensure that all course materials and exam details are up-to-date.<br/>
+                - Double-Check Entries: Review all entries for accuracy before saving.<br/>
+                - Seek Help When Needed: If you encounter any issues, contact technical support.<br/>
+            </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    </div>
+    </div>
+</body>
+</html>

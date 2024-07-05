@@ -1,0 +1,195 @@
+﻿@model StudentDashboardView
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='~/css/dashboard.css' rel='stylesheet'>
+
+    <style>
+        .main-body{
+            margin-left:40px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto; /* Center the button horizontally */
+        }
+
+        .box-p{
+            border: double #55AD9B;
+            border-radius:5px;
+            padding:1px;
+            display:inline-block;
+            padding-top:5px;
+            margin-left:500px;        }
+        
+
+        button:hover{
+            background-color:#4B9C8A;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="side-nav">
+            <img src="~/images/logo.png" height="50px" width="90px"/>
+            <div class="user">
+                <img src="~/images/profile-pic.png" class="user-img">
+                <div>
+                    <strong>Username:</strong> @ViewBag.Username<br>
+                    <strong>User ID:</strong> @ViewBag.Id
+                </div>
+                <img src="~/images/star.png" class="star-png">
+            </div>
+            <ul>
+                <li class="hover"><img src="~/images/dashboard.png"><p><a asp-area="" asp-controller="StudentDashboard" asp-action="StudentDashboard" style="color: #F1F8E8; text-decoration:none">DashBoard</a></p></li>
+                <li class="hover"><img src="~/images/result.png"><p><a asp-area="" asp-controller="Result" asp-action="All" style="color: #F1F8E8; text-decoration:none">Result</a></p></li>
+            </ul>
+
+            <ul>
+                <li style="color:white;"><img src="~/images/logout.png"><p><a asp-area="" asp-controller="Home" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Log Out</a></p></li>
+            </ul>
+        </div>
+        <div class="main-body">
+<h1>Student Dashboard</h1>
+           <br />
+
+<!-- Enrolled courses table -->
+@if (Model.EnrolledCourses == null || !Model.EnrolledCourses.Any())
+            {
+                    <div class="box-p " style="margin-left:520px;">
+    <p>No courses enrolled. Enroll Now!</p>
+    </div>
+}
+else
+{
+    <h2>Enrolled Courses</h2>
+
+    <table id="enrolledDT" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.EnrolledCourses)
+            {
+                <tr>
+                    <td>@Html.Encode(course.Course_Id)</td>
+                    <td>@Html.Encode(course.Course_Name)</td>
+                    <td>@Html.Encode(course.Course_Description)</td>
+                    <td style="text-align:right">
+                        @using (Html.BeginForm("Drop", "ActionController"))
+                        {
+                            @Html.Hidden("Course_Id", course.Course_Id)
+                                        <button asp-action="Drop" asp-controller="Action" class="btn btn-primary" type="submit" style="background-color:#55AD9B;color:white;border-color:#4B9C8A">Drop Course</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+ 
+<br/><br/>
+               
+<!-- Exams information -->
+@if (Model.Exams == null || !Model.Exams.Any())
+{
+                <div class="box-p">
+    <p>No exams found in your chosen Course.</p>
+    </div>
+}
+else
+{
+                <h2>Your Exams</h2>
+                <table id="avlExamsDT" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Exam ID</th>
+                <th>Exam Name</th>
+                <th>Course ID</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exam in Model.Exams)
+            {
+                <tr>
+                    <td>@Html.Encode(exam.ExamId)</td>
+                    <td>@Html.Encode(exam.ExamName)</td>
+                    <td>@Html.Encode(exam.Course_Id)</td>
+                    <td style="text-align:right;margin-right:50px;">
+                        @using (Html.BeginForm("Attempt", "Exam"))
+                        {
+                            @Html.Hidden("ExamId", exam.ExamId)
+                                        <button asp-action="Attempt" asp-controller="Exam" class="btn btn-primary" type="submit" style="background-color:#55AD9B;color:white;border-color:#4B9C8A"> Attempt</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+            <br /><br />
+<!-- All Courses Information -->
+@if (Model.NotEnrolledCourses == null || !Model.NotEnrolledCourses.Any())
+{
+    <h2>Courses</h2>
+    <div class="box-p">
+    <p>You are enrolled in all available courses.</p>
+    </div>
+}
+else
+{
+                <h2>Courses</h2>
+                <table id="allCoursesDT" class="table table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model.NotEnrolledCourses)
+            {
+                <tr>
+                    <td>@Html.Encode(course.Course_Id)</td>
+                    <td>@Html.Encode(course.Course_Name)</td>
+                    <td>@Html.Encode(course.Course_Description)</td>
+                    <td style="text-align:right">
+                        @using (Html.BeginForm("Enroll", "ActionController"))
+                        {
+                            @Html.Hidden("Course_Id", course.Course_Id)
+                                        <button asp-action="Enroll" asp-controller="Action" class="btn btn-primary" type="submit" style="background-color:#55AD9B;color:white;border-color:#4B9C8A">Enroll</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+            <br /><br />
+<!-- Add other tables as needed -->
+        </div>
+    </div>
+</body>
+</html>

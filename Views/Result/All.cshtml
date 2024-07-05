@@ -1,0 +1,98 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "All Results";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/css/dashboard.css" rel="stylesheet">
+
+    <style>
+        .center {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+        }
+
+        table{
+            margin-left:40px;
+        }
+
+        .button-container {
+            margin-left: 50px;
+            display: flex;
+            gap: 900px;
+        }
+
+        .custom-button {
+            width: 180px; /* Set width */
+            height: 50px; /* Set height */
+            background-color: #55AD9B; /* Change background color */
+            color: white; /* Change text color */
+            font-size: 16px; /* Increase font size */
+            cursor: pointer; /* Change cursor on hover */
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="head1">
+        <div class="head">
+            <div class="side-nav">
+                <img src="~/images/logo.png" height="50px" width="90px" />
+                <div class="user">
+                    <img src="~/images/profile-pic.png" class="user-img">
+                    <div>
+                        <strong>Username:</strong> @ViewBag.Username<br>
+                        <strong>User ID:</strong> @ViewBag.Id
+                    </div>
+                    <img src="~/images/star.png" class="star-png">
+                </div>
+                <ul>
+                    <li class="hover"><img src="~/images/dashboard.png"><p><a asp-area="" asp-controller="StudentDashboard" asp-action="StudentDashboard" style="color: #F1F8E8; text-decoration:none">DashBoard</a></p></li>
+                    <li class="hover"><img src="~/images/result.png"><p><a asp-area="" asp-controller="Result" asp-action="All" style="color: #F1F8E8; text-decoration:none">Result</a></p></li>
+                </ul>
+
+                <ul>
+                    <li style="color:white;"><img src="~/images/logout.png"><p><a asp-area="" asp-controller="Home" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Log Out</a></p></li>
+                </ul>
+            </div>
+        <!-- Your sidebar and navigation links -->
+        <div class="main-body">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Result Id</th>
+                        <th>Exam Id</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (System.Data.DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["ResultId"]</td>
+                            <td>@row["ExamId"]</td>
+                            <td>@row["Score"]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="center">
+                @using (Html.BeginForm("StudentDashboard", "StudentDashboard"))
+                {
+                    <button asp-action="StudentDashboard" asp-controller="StudentDashboard" class="btn btn-primary" type="submit" style="background-color:#55AD9B;color:white;border-color:#4B9C8A">Back to Dashboard</button>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

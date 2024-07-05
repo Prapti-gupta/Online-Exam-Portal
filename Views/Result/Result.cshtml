@@ -1,0 +1,145 @@
+﻿@model onlineexamproject.Models.ResultView
+
+@{
+    ViewData["Title"] = "Exam Result";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='~/css/dashboard.css' rel='stylesheet'>
+
+    <style>
+        .main-body {
+            margin-left: 40px;
+        }
+
+        .center{
+            text-align:center;
+        vertical-align:middle;
+        line-height:90px;}
+
+        .correct-answer {
+            color: #ffffff !important; /* Light green */
+            background-color: forestgreen !important; /* Dark green */
+        }
+
+        .incorrect-answer {
+            color: #ffffff !important; /* Light red */
+            background-color: indianred !important; /* Dark red */
+        }
+
+        .passfail{
+            padding:20px;
+            margin:20px;
+            width: 100%;
+            border-radius:10px;
+            background-color:#D8EFD3;
+            border-color:solid #55AD9B 2px;
+        }
+
+        .button-container {
+            margin-left: 50px;
+            display: flex;
+            gap: 900px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="side-nav">
+            <img src="~/images/logo.png" height="50px" width="90px" />
+            <div class="user">
+                <img src="~/images/profile-pic.png" class="user-img">
+                <div>
+                    <strong>Username:</strong> @ViewBag.Username<br>
+                    <strong>User ID:</strong> @ViewBag.Id
+                </div>
+                <img src="~/images/star.png" class="star-png">
+            </div>
+            <ul>
+                <li class="hover"><img src="~/images/dashboard.png"><p><a asp-area="" asp-controller="StudentDashboard" asp-action="StudentDashboard" style="color: #F1F8E8; text-decoration:none">DashBoard</a></p></li>
+                <li class="hover"><img src="~/images/result.png"><p><a asp-area="" asp-controller="Result" asp-action="Result" style="color: #F1F8E8; text-decoration:none">Result</a></p></li>
+            </ul>
+
+            <ul>
+                <li style="color:white;"><img src="~/images/logout.png"><p><a asp-area="" asp-controller="Home" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Log Out</a></p></li>
+            </ul>
+        </div>
+        <div class="main-body">
+            <div class="center">
+            <h2 style="margin:10px">Result for Exam - @Model.ExamId :</h2>
+                <h1 style="margin:10px">Percentage: @Model.Percentage.ToString("0.00") %</h1>
+            
+            @if (Model.Percentage >= 50)
+            {
+                <div class="passfail" >
+                <h2 style="color: black;">PASS!<br/>Congratulations! :)</h2>
+                </div>
+            }
+            else
+            {
+                <div class="passfail">
+                <h2 style="color: black;">FAIL!<br/>Try Again! :(</h2>
+                </div>
+            }
+                
+            </div>
+            <table class="table table-bordered" style="margin-left:20px;">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Your Answer</th>
+                        <th>Correct Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.OriginalAnswers != null && Model.StudentChoices != null)
+                    {
+                        foreach (var question in Model.OriginalAnswers)
+                        {
+                            var studentChoice = Model.StudentChoices.FirstOrDefault(c => c.Q_Id == question.Q_Id);
+                            bool isCorrect = studentChoice != null && studentChoice.OptionSelected == question.Correct_Answer;
+
+                            <tr>
+                                <td>@question.Question</td>
+                                <td class="@(isCorrect ? "correct-answer" : "incorrect-answer")">
+                                    @studentChoice?.OptionSelected
+                                </td>
+                                <td>@question.Correct_Answer</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3">No result data available.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="button-container">
+                <form asp-controller="StudentDashboard" asp-action="StudentDashboard" method="get">
+
+                    <button type="submit" class="btn btn-primary" style="background-color:#55AD9B;color:white;border-color:#4B9C8A">Back to Dashboard</button>
+
+                </form>
+
+
+                <form asp-controller="Result" asp-action="All" method="get">
+
+                    <button type="submit" class="btn btn-primary" style="background-color:#55AD9B;color:white;border-color:#4B9C8A; margin-left:20px">See All Results</button>
+                </form>
+            </div>
+
+           
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "List of Exams";
+}
+
+
+<style>
+    a {
+        text-decoration: none;
+    }
+
+    table {
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+
+    table {
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+
+    .button-container {
+        margin-left: 50px;
+        display: flex;
+        gap: 900px;
+    }
+
+    .custom-button {
+        width: 180px; /* Set width */
+        height: 50px; /* Set height */
+        background-color: #55AD9B; /* Change background color */
+        color: white; /* Change text color */
+        font-size: 16px; /* Increase font size */
+        cursor: pointer; /* Change cursor on hover */
+        border-radius: 5px;
+    }
+</style>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='~/css/dashboard.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="head">
+        <div class="side-nav">
+            <img src="~/images/logo.png" height="50px" width="90px" />
+            <div class="user">
+                <img src="~/images/profile-pic.png" class="user-img">
+                <div>
+                    <strong>Username:</strong> @ViewBag.Username<br>
+                    <strong>User ID:</strong> @ViewBag.Id
+                </div>
+                <img src="~/images/star.png" class="star-png">
+            </div>
+            <ul>
+                <li class="hover"><img src="~/images/dashboard.png"><p><a asp-area="" asp-controller="TeacherDashboard" asp-action="TeacherDashboard" style="color: #F1F8E8; text-decoration:none">DashBoard</a></p></li>
+                <li class="hover"><img src="~/images/course.png"><p><p><a asp-area="" asp-controller="Course" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Course</a></p></li>
+                <li class="hover"><img src="~/images/exam.png"><p><a asp-area="" asp-controller="Exam" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Exam</a></p></li>
+                <li class="hover"><img src="~/images/test.png"><p><a asp-area="" asp-controller="Questions" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Add Questions</a></p></li>
+                <li class="hover"><img src="~/images/result.png"><p><a asp-area="" asp-controller="Result" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Result</a></p></li>
+            </ul>
+
+            <ul>
+                <li style="color:white;"><img src="~/images/logout.png"><p><a asp-area="" asp-controller="Home" asp-action="Index" style="color: #F1F8E8; text-decoration:none">Log Out</a></p></li>
+            </ul>
+        </div>
+        <div class="main-body">
+<div class="jumbotron">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+</div>
+
+
+
+
+<table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                Exam Id
+            </th>
+            <th>
+                Exam Name
+            </th>
+            <th>
+                Exam Date & Time
+            </th>
+            <th>
+                Course_Id
+            </th>
+            <th>
+                <a asp-action="AddorEdit">Create New</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@for(int i=0; i<Model.Rows.Count; i++)
+{
+        <tr>
+            <td>
+                @Model.Rows[i]["ExamId"]
+            </td>
+            <td>
+                    @Model.Rows[i]["ExamName"]
+            </td>
+            <td>
+                    @Model.Rows[i]["ExamDateTime"]
+            </td>
+                <td>
+                    @Model.Rows[i]["Course_Id"]
+                </td>
+            <td>
+                    <a asp-action="AddorEdit" asp-route-id="@Model.Rows[i]["ExamId"]">Edit</a> |
+                
+                    <a asp-action="Delete" asp-route-id="@Model.Rows[i]["ExamId"]">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+            <div class="button-container">
+                <form asp-controller="Course" asp-action="Index" method="get">
+
+                    <button type="submit" class="custom-button">Back to Add Course</button>
+
+                </form>
+
+
+                <form asp-controller="Questions" asp-action="Index" method="get">
+
+                    <button type="submit" class="custom-button">Continue to Add Questions</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,152 @@
+﻿@model onlineexamproject.Models.Signup
+
+<html>
+<head>
+    <title>Teacher SignUp</title>
+
+    <style>
+        body {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: black;
+            background-color: #D8EFD3;
+        }
+
+        #form {
+            width: 300px;
+            margin: 5vh auto 5vh auto;
+            margin-top:70px;
+            background: transparent;
+            border-radius: 4px;
+            font-size: 1rem;
+            position: relative;
+            width: 450px;
+            backdrop-filter: blur(25px);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            padding: 2em 2em 3em 2em;
+            color: var(--second-color);
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.2);
+            background-color: #F1F8E8;
+        }
+
+            #form h1 {
+                font-size: 2rem;
+                color: black;
+                text-align: center;
+            }
+
+            #form button {
+                padding: 10px;
+                margin-top: 10px;
+                width: 100%;
+                color: white;
+                background-color: #55AD9B;
+                border: none;
+                border-radius: 4px;
+                font-size: 1rem;
+            }
+
+
+
+        .input-control {
+            display: flex;
+            padding-right: 20px;
+            flex-direction: column;
+        }
+
+            .input-control input {
+                border: 2px solid #f0f0f0;
+                border-radius: 4px;
+                display: block;
+                font-size: 12px;
+                padding: 10px;
+                width: 100%;
+            }
+
+                .input-control input:focus {
+                    outline: 0;
+                }
+
+            .input-control.success input {
+                border-color: #09c372;
+            }
+
+            .input-control.error input {
+                border-color: #ff3860;
+            }
+
+            .input-control .error {
+                color: #ff3860;
+                font-size: 9px;
+                height: 13px;
+            }
+
+        .form-group {
+            padding: 10px;
+        }
+
+        .login {
+            padding: 20px;
+            text-align: center;
+            font-size: 1em;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div class="container">
+    
+        <form method="post" asp-action="Teacher" asp-controller="Signup" id="form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <h1>Teacher Sign Up</h1>
+                <div class="input-control">
+
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" placeholder="Username" autocomplete="off" />
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" type="password" placeholder="Password" autocomplete="off" />
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Confirm Password" autocomplete="off" />
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="RememberMe" type="checkbox"> Remember Me
+                    </label>
+                </div>
+            
+
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        
+        <div class="login">
+            <p>Already registered? <a asp-controller="Login" asp-action="Teacher">Log In</a></p>
+        </div>
+
+        </form>
+    </div>
+        
+</div>
+
+
+</body>
+</html>

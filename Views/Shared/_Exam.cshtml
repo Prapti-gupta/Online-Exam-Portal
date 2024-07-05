@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - onlineexamproject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/onlineexamproject.styles.css" asp-append-version="true" />
+    <link type="text/css" href="~/datatables/datatables.min.css" rel="stylesheet" />
+
+    <style>
+
+        .container-fluid {
+            background-color: #55AD9B;
+        }
+        .navbar {
+            justify-content: flex-end;
+            background-color: #55AD9B;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            color: whitesmoke;
+        }
+
+        .navbar-nav {
+            justify-content: flex-end;
+            font-size: 1.25em;
+            background-color: #55AD9B;
+        }
+
+        li {
+            padding-left: 20px;
+        }
+
+        body {
+            background-color: #D8EFD3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="nav-item">
+                    <img src="~/images/logo.png" style="height:50px; align-content:flex-start" />
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <span class="nav-link" style="color:white">Exam ID: @Model.ExamId</span>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link" id="timer" style="color:white">Time Remaining: <span id="time"></span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/datatables/datatables.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+            var timeRemaining = 60 * 20; // 20 minutes timer. later should work with asp to autosubmit
+            var timerElement = $('#time');
+            var form = $('#mainForm');
+
+            function startTimer() {
+                var timerInterval = setInterval(function () {
+                    var minutes = Math.floor(timeRemaining / 60);
+                    var seconds = timeRemaining % 60;
+
+                    timerElement.text(`${minutes}:${seconds < 10 ? '0' + seconds : seconds}`);
+
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        form.submit();
+                    } else {
+                        timeRemaining--;
+                    }
+                }, 1000);
+            }
+
+            startTimer();
+        });
+    </script>
+</body>
+</html>
