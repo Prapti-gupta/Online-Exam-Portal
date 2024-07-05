@@ -1,0 +1,124 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins",'sans-serif';
+}
+
+.head {
+    width: 100%;
+    height: 100vh;
+    background-image: url(~/images/background_colour.png);
+    background-position: center;
+    background-size: cover;
+}
+
+.side-nav {
+    width: 110px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 15px;
+    background-color: #55AD9B;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: width 0.5s;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+    .user div {
+        display: none;
+    }
+
+    .user h2 {
+        font-size: 15px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+.user-img {
+    width: 40px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.star-png {
+    width: 20px;
+    display: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0 15px;
+}
+
+.hover {
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+}
+
+.user ul li img {
+    width: 30px;
+    margin-right: 0;
+}
+
+ul li p {
+    white-space: nowrap;
+    display: none;
+}
+
+.side-nav:hover {
+    width: 250px;
+}
+
+    .side-nav:hover .user div {
+        display: block;
+    }
+
+    .side-nav:hover .user {
+        width: 100%;
+        background: #F1F8E8;
+        backdrop-filter: blur(5px);
+    }
+
+    .side-nav:hover .star-png {
+        display: block;
+    }
+
+    .side-nav:hover .user-img {
+        margin: 0;
+    }
+
+    .side-nav:hover ul li p {
+        display: block;
+    }
+
+    .side-nav:hover ul li img {
+        margin-right: 10px;
+    }
+
+    .side-nav:hover .hover {
+        justify-content: flex-start;
+        color: white;
+        font-size: 15px;
+    }
